@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 /**
- * useSiteSettings — loads the single SiteSetting record (the CMS-driven
- * global config). Returns a sensible fallback until the record exists so
- * the public site always renders, then swaps in backend values once loaded.
+ * useSiteSettings — loads the site settings from GitHub public folder
+ * Returns a sensible fallback until loaded so the public site always renders,
+ * then swaps in GitHub values once loaded.
  */
 const FALLBACK = {
   name: "Ovejite",
@@ -36,12 +36,16 @@ export function useSiteSettings() {
     let mounted = true;
     (async () => {
       try {
-        const { base44 } = await import("@/api/base44Client");
-        const list = await base44.entities.SiteSetting.list();
-        if (mounted && list && list.length > 0) {
-          setSettings({ ...FALLBACK, ...list[0] });
+        // Fetch site settings from public/site-settings.json
+        const response = await fetch("/site-settings.json");
+        if (response.ok) {
+          const data = await response.json();
+          if (mounted) {
+            setSettings({ ...FALLBACK, ...data });
+          }
         }
       } catch (e) {
+        console.error("Error loading site settings:", e);
         // keep fallback — site still renders
       } finally {
         if (mounted) setLoading(false);
