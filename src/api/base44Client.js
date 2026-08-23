@@ -1,14 +1,7 @@
-import { createClient } from '@base44/sdk';
-import { appParams } from '@/lib/app-params';
+// GitHub-based CMS client (no Base44 needed)
+// All settings are loaded from public/site-settings.json
 
-const { appId, token, functionsVersion, appBaseUrl } = appParams;
-
-//Create a client with authentication required
-export const base44 = createClient({
-  appId,
-  token,
-  functionsVersion,
-  serverUrl: '',
-  requiresAuth: false,
-  appBaseUrl
-});
+export const githubClient = {
+  ready: true,
+  // This is now just a placeholder - all settings come from the JSON file
+};
