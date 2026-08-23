@@ -1,0 +1,95 @@
+{
+  "name": "SiteSetting",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "default": "Ovejite"
+    },
+    "title": {
+      "type": "string",
+      "default": "Performance Marketing Specialist"
+    },
+    "short_bio": {
+      "type": "string"
+    },
+    "profile_photo": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "whatsapp_number": {
+      "type": "string"
+    },
+    "whatsapp_message": {
+      "type": "string"
+    },
+    "booking_url": {
+      "type": "string"
+    },
+    "linkedin": {
+      "type": "string"
+    },
+    "twitter": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "monthly_ad_spend": {
+      "type": "string",
+      "default": "$3.6M+"
+    },
+    "projects_count": {
+      "type": "string",
+      "default": "50+"
+    },
+    "years_experience": {
+      "type": "string",
+      "default": "8+"
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "meta_description": {
+      "type": "string"
+    },
+    "og_image": {
+      "type": "string"
+    },
+    "favicon": {
+      "type": "string"
+    },
+    "gtm_id": {
+      "type": "string"
+    },
+    "ga4_id": {
+      "type": "string"
+    },
+    "meta_pixel_id": {
+      "type": "string"
+    }
+  },
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
