@@ -4,9 +4,11 @@ import Reveal from "@/components/Reveal";
 import CTAButton from "@/components/CTAButton";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { Image } from "@/components/ui/image";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 export default function AboutPreview() {
   const { settings } = useSiteSettings();
+  const { content } = useCMSPage("home");
   const aboutImage = "https://media.base44.com/images/public/6a8b03e54d231ed531b97b43/cdcec4297_generated_6004dbcc.png";
 
   return (
@@ -36,17 +38,17 @@ export default function AboutPreview() {
               About
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 leading-[1.1]">
-              Meet the Marketer Behind the Strategy.
+              {content.about_title || "Meet the Marketer Behind the Strategy."}
             </h2>
             <p className="mt-5 text-lg text-slate-600 leading-relaxed">
               {settings.short_bio || "I'm a performance-focused digital marketer specializing in Google Ads, Meta Ads, conversion tracking, and growth strategy. I help businesses understand, improve, and scale their marketing through better advertising strategy, accurate tracking, and continuous optimization."}
             </p>
             <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-              My approach connects advertising, data, and conversion optimization — because advertising works better when strategy, tracking, and conversion are connected.
+              {content.about_paragraph || "My approach connects advertising, data, and conversion optimization — because advertising works better when strategy, tracking, and conversion are connected."}
             </p>
             <div className="mt-8">
               <CTAButton to="/about" variant="secondary" size="lg">
-                Learn More About Me
+                {content.about_cta || "Learn More About Me"}
                 <ArrowRight className="w-5 h-5" />
               </CTAButton>
             </div>
