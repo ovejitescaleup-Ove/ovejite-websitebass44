@@ -3,9 +3,11 @@ import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
 import CTAButton from "@/components/CTAButton";
 import { useSiteSettings, buildWhatsAppUrl } from "@/hooks/useSiteSettings";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 export default function Contact() {
   const { settings } = useSiteSettings();
+  const { content } = useCMSPage("contact");
   const whatsappUrl = buildWhatsAppUrl(settings.whatsapp_number, settings.whatsapp_message);
 
   return (
@@ -14,13 +16,13 @@ export default function Contact() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
             <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary mb-4">
-              <span className="h-px w-8 bg-primary" /> Contact
+              <span className="h-px w-8 bg-primary" /> {content.eyebrow || "Contact"}
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-slate-900 leading-[1.05]">
-              Let's Start a Conversation
+              {content.title || "Let's Start a Conversation"}
             </h1>
             <p className="mt-6 text-lg text-slate-600 max-w-2xl mx-auto">
-              Tell me about your business and your goals. I'll get back to you within 24 hours.
+              {content.description || "Tell me about your business and your goals. I'll get back to you within 24 hours."}
             </p>
           </Reveal>
         </div>
@@ -32,7 +34,7 @@ export default function Contact() {
             {/* Form */}
             <Reveal className="lg:col-span-2">
               <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-6 lg:p-10">
-                <h2 className="text-2xl font-bold font-display text-slate-900 mb-6">Send a Message</h2>
+                <h2 className="text-2xl font-bold font-display text-slate-900 mb-6">{content.form_title || "Send a Message"}</h2>
                 <ContactForm source="contact_page" />
               </div>
             </Reveal>
