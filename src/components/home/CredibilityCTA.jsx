@@ -4,9 +4,11 @@ import CTAButton from "@/components/CTAButton";
 import Counter from "@/components/Counter";
 import PerformanceChart from "@/components/charts/PerformanceChart";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 export default function CredibilityCTA() {
   const { settings } = useSiteSettings();
+  const { content } = useCMSPage("home");
 
   return (
     <section className="py-20 lg:py-28">
@@ -18,7 +20,7 @@ export default function CredibilityCTA() {
               <div className="absolute -top-20 -right-20 w-72 h-72 bg-orange-500/20 rounded-full blur-3xl" />
               <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl" />
               <div className="relative">
-                <span className="text-sm font-semibold text-orange-400 uppercase tracking-wider">Featured Metric</span>
+                <span className="text-sm font-semibold text-orange-400 uppercase tracking-wider">{content.credibility_eyebrow || "Featured Metric"}</span>
                 <p className="mt-3 text-5xl lg:text-6xl font-extrabold font-display text-white">
                   <Counter value={settings.monthly_ad_spend} />
                 </p>
@@ -43,18 +45,18 @@ export default function CredibilityCTA() {
           <Reveal delay={100}>
             <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary mb-4">
               <span className="h-px w-8 bg-primary" />
-              Ready to grow?
+              {content.credibility_eyebrow || "Ready to grow?"}
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 leading-[1.1]">
-              Ready to Improve Your Marketing Performance?
+              {content.credibility_title || "Ready to Improve Your Marketing Performance?"}
             </h2>
             <p className="mt-5 text-lg text-slate-600 leading-relaxed">
-              Whether you're scaling ad spend, fixing conversion tracking, or building a growth strategy from scratch — it starts with understanding what's working and what isn't.
+              {content.credibility_description || "Whether you're scaling ad spend, fixing conversion tracking, or building a growth strategy from scratch — it starts with understanding what's working and what isn't."}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <CTAButton to={settings.booking_url || "/contact"} size="lg" eventName="consultation_click" eventParams={{ location: "credibility" }}>
                 <Calendar className="w-5 h-5" />
-                Let's Discuss Your Growth Strategy
+                {content.credibility_cta || "Let's Discuss Your Growth Strategy"}
               </CTAButton>
               <CTAButton to="/contact" variant="secondary" size="lg">
                 Contact Me
