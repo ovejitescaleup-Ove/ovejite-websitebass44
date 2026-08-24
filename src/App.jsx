@@ -34,6 +34,7 @@ import AdminResources from '@/pages/admin/AdminResources';
 import AdminServices from '@/pages/admin/AdminServices';
 import AdminIndustries from '@/pages/admin/AdminIndustries';
 import AdminSettings from '@/pages/admin/AdminSettings';
+import AdminPages from '@/pages/admin/AdminPages';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -94,6 +95,7 @@ const AuthenticatedApp = () => {
           <Route path="/admin/services" element={<AdminServices />} />
           <Route path="/admin/industries" element={<AdminIndustries />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
+          <Route path="/admin/pages" element={<AdminPages />} />
         </Route>
       </Route>
 
