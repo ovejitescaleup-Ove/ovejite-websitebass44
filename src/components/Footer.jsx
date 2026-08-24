@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import { Mail, MessageCircle, Linkedin, Twitter, Instagram, Facebook, ArrowRight } from "lucide-react";
 import { useSiteSettings, buildWhatsAppUrl } from "@/hooks/useSiteSettings";
+import { useEffect, useState } from "react";
+import { base44 } from "@/api/base44Client";
 
 export default function Footer() {
   const { settings } = useSiteSettings();
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    base44.entities.Service.list("display_order", 5).then((rows) => setServices(rows || [])).catch(() => {});
+  }, []);
 
   const socials = [
     { icon: Linkedin, url: settings.linkedin, label: "LinkedIn" },
@@ -61,11 +68,15 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-5">Services</h4>
             <ul className="space-y-3 text-sm">
-              <FooterLink to="/services/google-ads-management">Google Ads Management</FooterLink>
-              <FooterLink to="/services/meta-ads">Meta Ads</FooterLink>
-              <FooterLink to="/services/conversion-tracking">Conversion Tracking</FooterLink>
-              <FooterLink to="/services/ga4-gtm-setup">GA4 & GTM Setup</FooterLink>
-              <FooterLink to="/services/growth-strategy">Growth Strategy</FooterLink>
+              {(services.length ? services : [
+                { slug: "google-ads-management", title: "Google Ads Management" },
+                { slug: "meta-ads", title: "Meta Ads" },
+                { slug: "conversion-tracking", title: "Conversion Tracking" },
+                { slug: "ga4-gtm-setup", title: "GA4 & GTM Setup" },
+                { slug: "growth-strategy", title: "Growth Strategy" },
+              ]).map((service) => (
+                <FooterLink key={service.slug} to={`/services/${service.slug}`}>{service.title}</FooterLink>
+              ))}
             </ul>
           </div>
 
