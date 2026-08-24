@@ -3,6 +3,7 @@ import SectionHeader from "@/components/SectionHeader";
 import PerformanceChart from "@/components/charts/PerformanceChart";
 import Funnel from "@/components/charts/Funnel";
 import { BarChart3, TrendingDown, TrendingUp, DollarSign, PieChart, Activity } from "lucide-react";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 const VISUALS = [
   {
@@ -35,6 +36,7 @@ const VISUALS = [
 ];
 
 export default function PerformanceVisuals() {
+  const { content } = useCMSPage("home");
   return (
     <section className="py-20 lg:py-28 bg-slate-950 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-3xl" />
@@ -42,9 +44,9 @@ export default function PerformanceVisuals() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <Reveal>
           <SectionHeader
-            eyebrow="Data-Driven"
-            title="Marketing Decisions Should Be Backed by Data."
-            subtitle="Every campaign, every optimization, every dollar — measured, analyzed, and improved. These are illustrative visualizations of the metrics that matter."
+            eyebrow={content.performance_eyebrow || "Data-Driven"}
+            title={content.performance_title || "Marketing Decisions Should Be Backed by Data."}
+            subtitle={content.performance_subtitle || "Every campaign, every optimization, every dollar — measured, analyzed, and improved. These are illustrative visualizations of the metrics that matter."}
             light
           />
         </Reveal>
