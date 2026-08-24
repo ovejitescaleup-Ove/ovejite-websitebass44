@@ -3,6 +3,7 @@ import Reveal from "@/components/Reveal";
 import CTAButton from "@/components/CTAButton";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { Image } from "@/components/ui/image";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 const EXPERTISE = [
   { icon: Target, label: "Google Ads", desc: "Search, Shopping, Performance Max" },
@@ -22,6 +23,7 @@ const PHILOSOPHY = [
 
 export default function About() {
   const { settings } = useSiteSettings();
+  const { content } = useCMSPage("about");
   const aboutImage = "https://media.base44.com/images/public/6a8b03e54d231ed531b97b43/cdcec4297_generated_6004dbcc.png";
 
   return (
@@ -32,10 +34,10 @@ export default function About() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <Reveal>
               <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary mb-4">
-                <span className="h-px w-8 bg-primary" /> About
+                <span className="h-px w-8 bg-primary" /> {content.eyebrow || "About"}
               </span>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-slate-900 leading-[1.05]">
-                Meet the Marketer Behind the Strategy.
+                {content.title || "Meet the Marketer Behind the Strategy."}
               </h1>
               <p className="mt-6 text-lg text-slate-600 leading-relaxed">
                 {settings.short_bio || "I'm a performance-focused digital marketer who helps businesses grow through smarter advertising, accurate tracking, and continuous optimization."}
