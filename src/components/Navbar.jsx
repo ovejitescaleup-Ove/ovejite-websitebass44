@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown, MessageCircle, Calendar } from "lucide-react";
 import CTAButton from "./CTAButton";
 import { useSiteSettings, trackEvent } from "@/hooks/useSiteSettings";
+import { base44 } from "@/api/base44Client";
 
 const SERVICES = [
   { label: "Google Ads Management", slug: "google-ads-management", icon: "Search" },
@@ -27,6 +28,21 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [services, setServices] = useState(SERVICES);
+  const [industries, setIndustries] = useState(INDUSTRIES);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const [serviceRows, industryRows] = await Promise.all([
+          base44.entities.Service.list("display_order", 50),
+          base44.entities.Industry.list("display_order", 50),
+        ]);
+        if (serviceRows?.length) setServices(serviceRows.map((s) => ({ label: s.title, slug: s.slug, icon: s.icon })));
+        if (industryRows?.length) setIndustries(industryRows.map((i) => ({ label: i.title, slug: i.slug, icon: i.icon })));
+      } catch (_) {}
+    })();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -66,7 +82,7 @@ export default function Navbar() {
               {/* Services dropdown */}
               <DropdownNavItem
                 label="Services"
-                items={SERVICES}
+                items={services}
                 basePath="/services"
                 isOpen={openDropdown === "services"}
                 onEnter={() => setOpenDropdown("services")}
@@ -76,7 +92,7 @@ export default function Navbar() {
               {/* Industries dropdown */}
               <DropdownNavItem
                 label="Industries"
-                items={INDUSTRIES}
+                items={industries}
                 basePath="/industries"
                 isOpen={openDropdown === "industries"}
                 onEnter={() => setOpenDropdown("industries")}
@@ -114,8 +130,8 @@ export default function Navbar() {
         <div className="fixed inset-0 z-40 lg:hidden bg-white pt-20 overflow-y-auto">
           <div className="px-4 py-6 space-y-1">
             <MobileLink to="/about" onClick={() => setMobileOpen(false)}>About</MobileLink>
-            <MobileAccordion label="Services" items={SERVICES} basePath="/services" onNavigate={() => setMobileOpen(false)} />
-            <MobileAccordion label="Industries" items={INDUSTRIES} basePath="/industries" onNavigate={() => setMobileOpen(false)} />
+            <MobileAccordion label="Services" items={services} basePath="/services" onNavigate={() => setMobileOpen(false)} />
+            <MobileAccordion label="Industries" items={industries} basePath="/industries" onNavigate={() => setMobileOpen(false)} />
             <MobileLink to="/case-studies" onClick={() => setMobileOpen(false)}>Case Studies</MobileLink>
             <MobileLink to="/resources" onClick={() => setMobileOpen(false)}>Resources</MobileLink>
             <MobileLink to="/contact" onClick={() => setMobileOpen(false)}>Contact</MobileLink>
