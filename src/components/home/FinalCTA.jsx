@@ -2,9 +2,11 @@ import { Calendar, MessageCircle, Mail } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import CTAButton from "@/components/CTAButton";
 import { useSiteSettings, buildWhatsAppUrl, trackEvent } from "@/hooks/useSiteSettings";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 export default function FinalCTA() {
   const { settings } = useSiteSettings();
+  const { content } = useCMSPage("home");
   const whatsappUrl = buildWhatsAppUrl(settings.whatsapp_number, settings.whatsapp_message);
 
   return (
@@ -18,10 +20,10 @@ export default function FinalCTA() {
 
             <div className="relative max-w-3xl mx-auto">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold font-display text-white leading-[1.1]">
-                Let's Talk About Better Results.
+                {content.final_title || "Let's Talk About Better Results."}
               </h2>
               <p className="mt-6 text-lg lg:text-xl text-white/90 leading-relaxed">
-                If you're looking to improve your paid advertising, fix your conversion tracking, or build a stronger growth strategy, let's start with a conversation.
+                {content.final_description || "If you're looking to improve your paid advertising, fix your conversion tracking, or build a stronger growth strategy, let's start with a conversation."}
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
                 <CTAButton
@@ -32,7 +34,7 @@ export default function FinalCTA() {
                   eventParams={{ location: "final_cta" }}
                 >
                   <Calendar className="w-5 h-5" />
-                  Book a Call
+                  {content.final_cta || "Book a Call"}
                 </CTAButton>
                 {settings.whatsapp_number && (
                   <CTAButton
