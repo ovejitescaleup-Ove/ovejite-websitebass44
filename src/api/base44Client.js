@@ -1,14 +1,16 @@
-import { createClient } from '@base44/sdk';
-import { appParams } from '@/lib/app-params';
+const emptyEntity = {
+  list: async () => [],
+  filter: async () => [],
+  create: async (data) => data,
+  update: async (_id, data) => data,
+  delete: async () => true,
+};
 
-const { appId, token, functionsVersion, appBaseUrl } = appParams;
-
-//Create a client with authentication required
-export const base44 = createClient({
-  appId,
-  token,
-  functionsVersion,
-  serverUrl: '',
-  requiresAuth: false,
-  appBaseUrl
-});
+export const base44 = {
+  entities: new Proxy(
+    {},
+    {
+      get: () => emptyEntity,
+    }
+  ),
+};
