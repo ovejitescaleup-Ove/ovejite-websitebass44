@@ -3,10 +3,12 @@ import { Calendar, ArrowRight, TrendingUp, Target, DollarSign } from "lucide-rea
 import CTAButton from "@/components/CTAButton";
 import MiniSparkline from "@/components/charts/MiniSparkline";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { useCMSPage } from "@/hooks/useCMSPage";
 import { Image } from "@/components/ui/image";
 
 export default function Hero() {
   const { settings } = useSiteSettings();
+  const { content } = useCMSPage("home");
   const heroImage = "https://media.base44.com/images/public/6a8b03e54d231ed531b97b43/0840b0fd1_generated_dd3c07c4.png";
 
   return (
@@ -23,24 +25,24 @@ export default function Hero() {
           <div className="animate-fade-in-up">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-100 text-sm font-semibold text-primary mb-6">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              Performance Marketing Specialist
+              {content.hero_badge || "Performance Marketing Specialist"}
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight font-display text-slate-900 leading-[1.05]">
-              Let's Grow Your Business Through{" "}
+              {content.hero_title_before || "Let's Grow Your Business Through"}{" "}
               <span className="bg-gradient-to-r from-[#FF4D00] to-[#7C3AED] bg-clip-text text-transparent">
-                Smarter Digital Marketing.
+                {content.hero_title_highlight || "Smarter Digital Marketing."}
               </span>
             </h1>
             <p className="mt-6 text-lg lg:text-xl text-slate-600 leading-relaxed max-w-xl">
-              Google Ads, Meta Ads, Conversion Tracking & Growth Strategy designed around measurable business results.
+              {content.hero_description || "Google Ads, Meta Ads, Conversion Tracking & Growth Strategy designed around measurable business results."}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <CTAButton to={settings.booking_url || "/contact"} size="lg" eventName="consultation_click" eventParams={{ location: "hero" }}>
                 <Calendar className="w-5 h-5" />
-                Book a Free Consultation
+                {content.hero_primary_cta || "Book a Free Consultation"}
               </CTAButton>
               <CTAButton to="/case-studies" variant="secondary" size="lg" eventName="view_work_click" eventParams={{ location: "hero" }}>
-                View My Work
+                {content.hero_secondary_cta || "View My Work"}
                 <ArrowRight className="w-5 h-5" />
               </CTAButton>
             </div>
@@ -73,7 +75,7 @@ export default function Hero() {
                   </div>
                   <span className="text-xs font-bold text-slate-500 uppercase">ROAS</span>
                 </div>
-                <p className="text-2xl font-extrabold text-slate-900">4.8x</p>
+                <p className="text-2xl font-extrabold text-slate-900">{content.roas || "4.8x"}</p>
                 <MiniSparkline color="#FF4D00" height={30} />
               </div>
 
@@ -85,7 +87,7 @@ export default function Hero() {
                   </div>
                   <span className="text-xs font-bold text-slate-500 uppercase">Conversions</span>
                 </div>
-                <p className="text-2xl font-extrabold text-slate-900">+186%</p>
+                <p className="text-2xl font-extrabold text-slate-900">{content.conversions || "+186%"}</p>
                 <MiniSparkline color="#7C3AED" height={30} points={[5, 8, 6, 12, 15, 13, 20, 24]} />
               </div>
 
