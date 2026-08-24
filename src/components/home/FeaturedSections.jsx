@@ -4,6 +4,7 @@ import PerformanceChart from "@/components/charts/PerformanceChart";
 import DataFlow from "@/components/charts/DataFlow";
 import Funnel from "@/components/charts/Funnel";
 import { TrendingUp, ArrowRight, BarChart3, Network } from "lucide-react";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 const SECTIONS = [
   {
@@ -41,10 +42,12 @@ const SECTIONS = [
 ];
 
 export default function FeaturedSections() {
+  const { content } = useCMSPage("home");
+  const sections = content.featured_sections?.length ? content.featured_sections : SECTIONS;
   return (
     <section className="py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 lg:space-y-32">
-        {SECTIONS.map((section, i) => (
+        {sections.map((section, i) => (
           <FeaturedSection key={i} section={section} reverse={i % 2 === 1} />
         ))}
       </div>
