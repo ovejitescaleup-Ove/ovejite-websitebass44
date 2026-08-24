@@ -5,9 +5,11 @@ import SectionHeader from "@/components/SectionHeader";
 import ServiceCard from "@/components/ServiceCard";
 import CTAButton from "@/components/CTAButton";
 import { FALLBACK_SERVICES } from "@/lib/siteData";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 export default function ServicesOverview() {
   const [services, setServices] = useState(FALLBACK_SERVICES);
+  const { content } = useCMSPage("home");
 
   useEffect(() => {
     (async () => {
@@ -23,9 +25,9 @@ export default function ServicesOverview() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal>
           <SectionHeader
-            eyebrow="What I Do"
-            title="How I Help Businesses Grow"
-            subtitle="From advertising strategy to conversion tracking to continuous optimization — every service is built around measurable business outcomes."
+            eyebrow={content.services_eyebrow || "What I Do"}
+            title={content.services_title || "How I Help Businesses Grow"}
+            subtitle={content.services_subtitle || "From advertising strategy to conversion tracking to continuous optimization — every service is built around measurable business outcomes."}
           />
         </Reveal>
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -37,7 +39,7 @@ export default function ServicesOverview() {
         </div>
         <Reveal className="mt-12 text-center">
           <CTAButton to="/services" variant="dark" size="lg">
-            Explore All Services
+            {content.services_cta || "Explore All Services"}
           </CTAButton>
         </Reveal>
       </div>
