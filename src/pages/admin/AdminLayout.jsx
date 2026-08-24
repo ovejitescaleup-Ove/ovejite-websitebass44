@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet, NavLink, Link, useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import {
-  LayoutDashboard, Users, FileText, BookOpen, Wrench, Briefcase, Settings,
+  LayoutDashboard, Users, FileText, BookOpen, Wrench, Briefcase, Settings, PanelsTopLeft,
   LogOut, ExternalLink, Menu, X,
 } from "lucide-react";
 
@@ -14,6 +14,7 @@ const NAV = [
   { to: "/admin/services", label: "Services", icon: Wrench },
   { to: "/admin/industries", label: "Industries", icon: Briefcase },
   { to: "/admin/settings", label: "Settings", icon: Settings },
+  { to: "/admin/pages", label: "Website Pages", icon: PanelsTopLeft },
 ];
 
 export default function AdminLayout() {
