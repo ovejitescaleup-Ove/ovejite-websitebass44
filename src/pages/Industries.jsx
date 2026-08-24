@@ -3,8 +3,10 @@ import { base44 } from "@/api/base44Client";
 import Reveal from "@/components/Reveal";
 import IndustryCard from "@/components/IndustryCard";
 import { FALLBACK_INDUSTRIES } from "@/lib/siteData";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 export default function Industries() {
+  const { content } = useCMSPage("industries");
   const [industries, setIndustries] = useState(FALLBACK_INDUSTRIES);
 
   useEffect(() => {
@@ -22,13 +24,13 @@ export default function Industries() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
             <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary mb-4">
-              <span className="h-px w-8 bg-primary" /> Industries
+              <span className="h-px w-8 bg-primary" /> {content.eyebrow || "Industries"}
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-slate-900 leading-[1.05]">
-              Built for Your Industry
+              {content.title || "Built for Your Industry"}
             </h1>
             <p className="mt-6 text-lg text-slate-600 max-w-2xl mx-auto">
-              Different industries need different strategies. Here's how I approach the ones I work with most.
+              {content.subtitle || "Different industries need different strategies. Here's how I approach the ones I work with most."}
             </p>
           </Reveal>
         </div>
