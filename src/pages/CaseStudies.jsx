@@ -3,6 +3,7 @@ import { base44 } from "@/api/base44Client";
 import Reveal from "@/components/Reveal";
 import CaseStudyCard from "@/components/CaseStudyCard";
 import { FALLBACK_CASE_STUDIES } from "@/lib/siteData";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 const FILTERS = [
   { label: "All", value: "all" },
@@ -13,6 +14,7 @@ const FILTERS = [
 ];
 
 export default function CaseStudies() {
+  const { content } = useCMSPage("case-studies");
   const [studies, setStudies] = useState(FALLBACK_CASE_STUDIES);
   const [filter, setFilter] = useState("all");
 
@@ -33,13 +35,13 @@ export default function CaseStudies() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
             <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary mb-4">
-              <span className="h-px w-8 bg-primary" /> Case Studies
+              <span className="h-px w-8 bg-primary" /> {content.eyebrow || "Case Studies"}
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-slate-900 leading-[1.05]">
-              Real Work. Real Strategy. Real Growth.
+              {content.title || "Real Work. Real Strategy. Real Growth."}
             </h1>
             <p className="mt-6 text-lg text-slate-600 max-w-2xl mx-auto">
-              Case studies showing the strategy, tracking, and optimization behind real results. New projects added as they're completed.
+              {content.subtitle || "Case studies showing the strategy, tracking, and optimization behind real results. New projects added as they're completed."}
             </p>
           </Reveal>
         </div>
