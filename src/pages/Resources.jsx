@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import ResourceCard from "@/components/ResourceCard";
 import { FALLBACK_RESOURCES } from "@/lib/siteData";
+import { useCMSPage } from "@/hooks/useCMSPage";
 
 const CATEGORIES = [
   { label: "All", value: "all" },
@@ -16,6 +17,7 @@ const CATEGORIES = [
 ];
 
 export default function Resources() {
+  const { content } = useCMSPage("resources");
   const [resources, setResources] = useState(FALLBACK_RESOURCES);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -41,13 +43,13 @@ export default function Resources() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
             <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary mb-4">
-              <span className="h-px w-8 bg-primary" /> Resources
+              <span className="h-px w-8 bg-primary" /> {content.eyebrow || "Resources"}
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-slate-900 leading-[1.05]">
-              Insights & Resources
+              {content.title || "Insights & Resources"}
             </h1>
             <p className="mt-6 text-lg text-slate-600 max-w-2xl mx-auto">
-              Practical guides on Google Ads, Meta Ads, conversion tracking, GA4, and growth strategy.
+              {content.subtitle || "Practical guides on Google Ads, Meta Ads, conversion tracking, GA4, and growth strategy."}
             </p>
           </Reveal>
         </div>
